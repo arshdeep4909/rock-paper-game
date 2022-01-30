@@ -44,7 +44,7 @@ section {
   margin-bottom: 30px;
   height: 20%;
   min-height: 150px;
-  transition: all 0.5s ease;
+  transition: opacity 0.5s ease;
 }
 
 .intro h1 {

@@ -8,7 +8,8 @@ const game = () => {
     const introScreen = document.querySelector(".intro");
     const match = document.querySelector(".match");
     const reset = document.querySelector(".reset-button");
-
+    const playerScore = document.querySelector(".player-score p");
+    const computerScore = document.querySelector(".computer-score p");
     //event listeners
 
     //starts the game
@@ -23,6 +24,8 @@ const game = () => {
       match.classList.remove("fadeIn");
       introScreen.classList.add("fadeIn");
       match.classList.add("fadeOut");
+      pScore = 0;
+      cScore = 0;
     });
   };
 
@@ -40,13 +43,29 @@ const game = () => {
         // we use function here bc then this will return the button that we click on.
         const computerNumber = Math.floor(Math.random() * 3); // generates number between 0 & 3
         const computerChoice = computerOptions[computerNumber];
+        //updating the score
+
         // calling the compare function
+        compareHands(this.textContent, computerChoice);
 
         // updating the images
         playerHand.src = `./images/${this.textContent}.png`;
         computerHand.src = `./images/${computerChoice}.png`;
+
+        //adding animations
+
+        playerHand.style.animation = "shakePlayer 2s ease";
+        computerHand.style.animation = "shakeComputer 2s ease";
       });
     });
+  };
+  // function to update the socres
+
+  const updateScore = () => {
+    const playerScore = document.querySelector(".player-score p");
+    const computerScore = document.querySelector(".computer-score p");
+    playerScore.textContent = pScore;
+    computerScore.textContent = cScore;
   };
 
   // function that compares the computer and player choice and decide the winner
@@ -60,17 +79,25 @@ const game = () => {
     if (playerChoice === "rock") {
       if (computerChoice === "scissors") {
         winner.textContent = "Player Wins";
+        pScore++;
+        updateScore();
         return;
       } else winner.textContent = "Computer Wins";
+      cScore++;
+      updateScore();
       return;
     }
     // paper
     if (playerChoice === "paper") {
       if (computerChoice === "scissors") {
         winner.textContent = "Computer Wins";
+        cScore++;
+        updateScore();
         return;
       } else {
         winner.textContent = "Player Wins";
+        pScore++;
+        updateScore();
         return;
       }
     }
@@ -78,9 +105,13 @@ const game = () => {
     if (playerChoice === "scissors") {
       if (computerChoice === "rock") {
         winner.textContent = "Computer Wins";
+        cScore++;
+        updateScore();
         return;
       } else {
         winner.textContent = "Player Wins";
+        pScore++;
+        updateScore();
         return;
       }
     }
