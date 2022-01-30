@@ -26,6 +26,8 @@ const game = () => {
       match.classList.add("fadeOut");
       pScore = 0;
       cScore = 0;
+      playerScore.textContent = 0;
+      computerScore.textContent = 0;
     });
   };
 
