@@ -32,9 +32,62 @@ const game = () => {
     // all the buttoms from options
     const playerHand = document.querySelector(".player-hand");
     const computerHand = document.querySelector(".computer-hand");
+    //computer Options
+    const computerOptions = ["rock", "paper", "scissors"];
+
+    options.forEach((option) => {
+      option.addEventListener("click", function () {
+        // we use function here bc then this will return the button that we click on.
+        const computerNumber = Math.floor(Math.random() * 3); // generates number between 0 & 3
+        const computerChoice = computerOptions[computerNumber];
+        // calling the compare function
+
+        // updating the images
+        playerHand.src = `./images/${this.textContent}.png`;
+        computerHand.src = `./images/${computerChoice}.png`;
+      });
+    });
+  };
+
+  // function that compares the computer and player choice and decide the winner
+  const compareHands = (playerChoice, computerChoice) => {
+    const winner = document.querySelector(".winner");
+    if (playerChoice === computerChoice) {
+      winner.textContent = "it is a tie";
+      return;
+    }
+    // rock
+    if (playerChoice === "rock") {
+      if (computerChoice === "scissors") {
+        winner.textContent = "Player Wins";
+        return;
+      } else winner.textContent = "Computer Wins";
+      return;
+    }
+    // paper
+    if (playerChoice === "paper") {
+      if (computerChoice === "scissors") {
+        winner.textContent = "Computer Wins";
+        return;
+      } else {
+        winner.textContent = "Player Wins";
+        return;
+      }
+    }
+    //scissors
+    if (playerChoice === "scissors") {
+      if (computerChoice === "rock") {
+        winner.textContent = "Computer Wins";
+        return;
+      } else {
+        winner.textContent = "Player Wins";
+        return;
+      }
+    }
   };
 
   startGame(); //otherwise we will just define the funciton without executing it
+  playMatch();
 };
 
 game(); //otherwise we will just define the funciton without executing it
